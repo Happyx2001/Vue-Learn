@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>template</title>
+</head>
+
+<body>
+    <!-- 计算属性的使用： -->
+    <!-- 计算属性顾名思义，是对Vue里面的属性进行一系列计算操作的方法
+        即：computed  -->
+    <div id="app">
+        <!-- 将data中的数据连接起来 -->
+        <!-- 1. 直接拼接：语法过于繁琐。一般不采用 -->
+        <h2>{{uname1 +' '+ uname2}}</h2>
+        <h2>{{uname1}} {{uname2}}</h2>
+
+        <!-- 2. 通过定义的methods -->
+        <h2>{{getUname()}}</h2>
+
+        <!-- 3. 通过computed -->
+        <h2>{{fullName}}</h2>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                uname1: "张三",
+                uname2: "李四",
+            },
+            // computed: 计算属性()
+            computed: {
+                fullName: function () {
+                    return this.uname1 + " " + this.uname2;
+                },
+            },
+            methods: {
+                getUname() {
+                    return this.uname1 + " " + this.uname2;
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. Vue初体验</title>
+</head>
+<style>
+    #app {
+        font-size: 50px;
+    }
+</style>
+
+<body>
+    <div id="app">
+        {{ message }}<br>
+        {{ time }}
+    </div>
+    <div>{{ message }}</div>
+
+    <script src="../vue.js"></script>
+    <script>
+        // vue实例的options
+        // el：类型 string | HTMLElement
+        // 作用：决定之后Vue实例会管理哪个DOM
+
+        // data：类型 Object | Function(组件当中data必须是一个函数才用)
+        // 作用：Vue实例对应的数据对象
+
+        // methods：类型 { [key: string]: Function } 键值对
+        // 作用：定义属于Vue的一些方法，可以在其他地方调用，也可以在指令中使用
+
+        const app = new Vue({
+            el: '#app', // el 决定挂载要管理的元素
+            data: { // 定义数据
+                message: 'Hello Vue',
+                time: '2021/6/22'
+            }
+            // methods: {}
+        })
+
+        // 元素js的做法(编程范式：命令式编程 (不用Vue的方式) )
+        // 1. 创建div元素，设置id属性
+        // 2. 定义一个变量message
+        // 3. 将 message变量 放在前面的div元素中显示
+        // 4. 修改message的数据，今天天气不错   （响应式）
+        // 5. 将修改后的数据再次替换到div元素中
+    </script>
+</body>
+
+</html>

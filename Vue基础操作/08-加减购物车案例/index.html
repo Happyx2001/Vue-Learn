@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- 购物车内有东西时显示(根据books的长度判断) -->
+        <div v-if="books.length">
+            <h2>购物车👇</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>书籍ID</th>
+                        <th>书籍名称</th>
+                        <th>出版日期</th>
+                        <th>价格</th>
+                        <th>购买数量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 通过 v-for 快速生成表格 -->
+                    <tr v-for="(item, index) in books">
+                        <td>{{item.id}}</td>
+                        <td>{{item.bookname}}</td>
+                        <td>{{item.date}}</td>
+                        <!-- 给price添加一个过滤器，便于给价格添加￥和.00 -->
+                        <!-- showPrice就是过滤器，传递的参数就是|前面的数值 -->
+                        <td>{{item.price | showPrice}}</td>
+                        <td>
+                            <button @click="down(index)" :disabled="item.count<=1">-</button>
+                            {{item.count}}
+                            <button @click="up(index)">+</button>
+                        </td>
+                        <td><button @click="clearBtn(index)">移除</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>书本总价格：{{totalPrice | showPrice}}</h2>
+        </div>
+
+        <!-- 购物车内没有东西时显示 -->
+        <h2 v-else>购物车为空</h2>
+    </div>
+    <script src="../vue.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>张三对象：{{zhangsan}}</h2>
+
+        <!-- v-for 遍历对象 -->
+        <!-- 1. 遍历过程中，如果只是获取一个值，则获取到的是value -->
+        <h2 v-for="item in zhangsan">{{item}}</h2>
+
+        <!-- 2. 同时获取 value 和 key -->
+        <h2 v-for="(value, key) in zhangsan">{{key}}--{{value}}</h2>
+
+        <!-- 3. 同时获取 value 、 key 和 index索引号 -->
+        <h2 v-for="(value, key, index) in zhangsan">{{index}}--{{key}}--{{value}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                zhangsan: {
+                    name: '张三',
+                    age: 20,
+                    id: 101
+                }
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

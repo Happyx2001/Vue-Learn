@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- v-show的用法与v-if非常相似，决定一个元素是否渲染 -->
+    <div id="app">
+        <h2 v-show="isShow">v-show决定元素是否渲染</h2>
+        <button @click="isShow=!isShow">切换渲染</button>
+    </div>
+
+    <!-- v-if和v-show的区别： -->
+    <!-- 1. v-if的条件为 false 时，DOM中对应的元素也会删除(不会存在) -->
+    <!-- 2. v-show的条件为 false 时，只是将元素的display属性设置为none，元素在DOM中依然存在 -->
+    <!-- 如何选择：如果需要在显示和隐藏间频繁操作，则使用 v-show
+                    如果只切换一次，则使用 v-if -->
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                isShow: true
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

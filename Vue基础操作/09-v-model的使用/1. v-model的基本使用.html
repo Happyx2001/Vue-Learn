@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- v-model 是双向绑定： -->
+    <!-- 当改变 input 里面的值的时候，
+        由于input已经跟message绑定了，所以message也会改变。
+        通过代码改变message也能改变input里面的值。 -->
+    <!-- v-model一般用于 input 和 textarea -->
+    <div id="app">
+        <!-- 1. v-model="message"表示 input里面的值双向绑定为 message -->
+        v-model="message"
+        <input type="text" name="" id="" v-model="message">
+        <h2>{{message}}</h2>
+
+        <!-- 2. 如果是用v-bind动态绑定input的value，则只是单向绑定 -->
+        v-bind:value="message"
+        <input type="text" name="" id="" :value="message">
+        <h2>{{message}}</h2>
+
+        <!-- 3. 结合 v-bind 和 v-on 也可以实现 v-model的功能，实现双向绑定 -->
+        v-bind:value="message" v-on:input="valueChange"
+        <!-- <input type="text" name="" id="" :value="message" v-on:input="valueChange"> -->
+        <input type="text" :value="message" v-on:input=" message = $event.target.value ">
+        <h2>{{message}}</h2>
+
+        <!-- 4. v-model其实就是一个语法糖，是 v-on 和 v-bind 的结合作用-->
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'v-model的基本使用'
+            },
+            methods: {
+                valueChange() {
+                    this.message = event.target.value;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise的基本使用</title>
+</head>
+<script>
+    // 一：
+    // Promise: 异步编程的一种解决方案！ 将“网络请求”与“处理过程”分开来执行
+    // 一般用于解决 “网络请求事件” 、解决 “回调地狱”
+    // Promise有三种状态：
+    // 1. pending 等待状态，正在进行的网络请求
+    // 2. fulfill 满足状态，主动回调resolve时，就处于该状态，并且回调then()
+    // 3. reject 拒绝状态，主动回调reject时，就处于该状态，并且回调catch()
+
+
+    // 参数 => 函数(resolve, reject)
+    // resolve, reject 它们本身又是函数
+    // Promise使用例子  (用定时器事件 setTimeout 模拟异步事件)
+    // Promise是链式调用
+    new Promise((resolve, reject) => {
+
+        // 第一次，网络请求(用setTimeout模拟)
+        setTimeout(() => {
+            // resolve()表示请求成功  reject()表示请求失败
+            resolve()
+        }, 1000)
+    }).then(() => {
+        // 第一次，拿到结果的处理代码
+        console.log('Hello World');
+        console.log('Hello World');
+        console.log('Hello World');
+        console.log('Hello World');
+        console.log('Hello World');
+
+        return new Promise((resolve, reject) => {
+
+            // 第二次，网络请求(用setTimeout模拟)
+            setTimeout(() => {
+                resolve()
+            }, 1000)
+        }).then(() => {
+            // 第二次，拿到结果的处理代码
+            console.log('Hello Vue');
+            console.log('Hello Vue');
+            console.log('Hello Vue');
+            console.log('Hello Vue');
+            console.log('Hello Vue');
+
+            return new Promise((resolve, reject) => {
+
+                // 第三次，网络请求(用setTimeout模拟)
+                setTimeout(() => {
+                    resolve()
+                }, 1000)
+            }).then(() => {
+                // 第三次，拿到结果的处理代码
+                console.log('Hello Promise');
+                console.log('Hello Promise');
+                console.log('Hello Promise');
+                console.log('Hello Promise');
+                console.log('Hello Promise');
+            })
+        })
+    })
+
+    // 二：  
+    // 使用Promise的情况：
+    // 有异步操作时，使用Promise对这个异步操作进行封装
+    // new -> 构造函数(1. 保存了一些状态信息  2. 执行传入的函数)
+    // 在执行传入的回调函数时，会传入两个参数， resolve、reject 本身又是函数
+
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            // 成功时调用resolve
+            // resolve('成功了!')
+            // 失败时调用reject
+            reject('失败了!')
+        }, 5000)
+    }).then((data) => {
+        console.log(data);
+        console.log(data);
+        console.log(data);
+        console.log(data);
+    }).catch((err) => {
+        // catch 捕获错误，reject状态才会调用
+        console.log(err);
+    })
+
+    // 三：Promise的其他写法
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            // 成功时调用resolve
+            // resolve('成功了!')
+            // 失败时调用reject
+            reject('失败了!')
+        }, 5000)
+    }).then((data) => {
+        console.log(data);
+        console.log(data);
+        console.log(data);
+        console.log(data);
+    }), err => {
+        // , err 返回错误状态
+        console.log(err);
+    }
+</script>
+
+<body>
+
+</body>
+
+</html>

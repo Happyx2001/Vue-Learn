@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <cpn1></cpn1>
+        <cpn2></cpn2>
+    </div>
+
+    <script>
+        // 1. 全局组件注册的语法糖
+        // 创建组件构造器，并且注册组件
+
+        // 旧写法 ↓
+        // const myComponent1 = Vue.extend({
+        //     template: `
+        //     <div>
+        //         <h2>全局组件</h2>
+        //         <p>组件内容1</p>
+        //         <p>组件内容2</p>
+        //     </div>
+        //     `
+        // });
+        // Vue.component('cpn1', myComponent1)
+
+        // 全局组件的语法糖写法：将extend写在component参数中
+        Vue.component('cpn1', {
+            template: `
+            <div>
+                <h2>全局组件</h2>
+                <p>组件内容1</p>
+                <p>组件内容2</p>
+            </div>
+            `
+        })
+
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {},
+            // 2. 局部组件注册的语法糖：
+            components: {
+                cpn2: {
+                    template: `
+                    <div>
+                        <h2>局部组件</h2>
+                        <p>组件内容1</p>
+                        <p>组件内容2</p>
+                    </div>
+                    `
+                }
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

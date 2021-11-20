@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- slot-具名插槽的使用：
+        1. 在组件模板中，给每个默认slot插槽赋予名字name
+        2. 在使用组件时，通过 template v-slot:插槽的name，改变特定的插槽 
+        3. template v-slot:插槽的name 的简写是： template #插槽的name
+        -->
+    <div id="app">
+        <!-- 不做更改，使用插槽的默认值 -->
+        <cpn></cpn>
+        -------------------------------
+        <!-- 改变 center插槽，为 ↓  -->
+        <cpn>
+            <template v-slot:center>
+                <h2>标题</h2>
+            </template>
+        </cpn>
+        -------------------------------
+        <!-- 改变 left插槽、right插槽，为 ↓ （简写） -->
+        <cpn>
+            <template #left>
+                <button>按钮</button>
+            </template>
+            <template #right>
+                <h2>按钮</h2>
+            </template>
+        </cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>我是子组件</h2>
+            <slot name="left"><span>左边</span></slot>
+            <slot name="center"><span>中间</span></slot>
+            <slot name="right"><span>右边</span></slot>
+        </div>
+    </template>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            components: {
+                cpn: {
+                    template: "#cpn"
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

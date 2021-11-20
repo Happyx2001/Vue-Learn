@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-if的使用 -->
+        <!-- v-if=true时，会显示标签内的内容 -->
+        <!-- 可以令 v-if=变量，通过改变变量动态改变v-if的值 -->
+        <h2 v-if="true">{{uname}}</h2>
+        <h2 v-if="isShow">你好，{{uname}}</h2>
+
+        <!-- v-else的使用 (需要与 v-if 结合使用) -->
+        <h2 v-if="unShow">unShow为true时,显示我</h2>
+        <h2 v-else="unShow">unShow为false时,显示我</h2>
+
+        <!-- v-else-if的使用 (需要与 v-if 结合使用) -->
+        <!-- 通过与 data 中的score响应 -->
+        <h2 v-if="score>=90">优秀</h2>
+        <h2 v-else-if="score>=80">良好</h2>
+        <h2 v-else-if="score>=70">还行</h2>
+        <h2 v-else-if="score>=60">及格</h2>
+        <h2 v-else>不及格</h2>
+
+
+        <!-- 使用 methods 代替 v-if 的情况 -->
+        <h2>{{result()}}</h2>
+
+        <!-- 较为复杂的逻辑判断, 一般在methods中设置函数判断 -->
+        <!-- 较为简单的逻辑判断, 则可以运用v-if v-else-if 等来判断 -->
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                uname: '张三',
+                isShow: true,
+                unShow: false,
+                score: 81
+            },
+            methods: {
+                result() {
+                    let showScore = '';
+                    if (this.score >= 90) {
+                        showScore = '优秀'
+                    } else if (this.score >= 80) {
+                        showScore = '良好'
+                    } else {
+                        showScore = '良好以下'
+                    }
+                    return showScore
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

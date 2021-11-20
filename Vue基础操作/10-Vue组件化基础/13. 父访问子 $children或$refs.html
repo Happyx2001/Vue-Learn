@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- 父组件访问子组件的数据 data() 和 方法 methods，
+            $children 和 %refs -->
+    <div id="app">
+        <!-- 给子组件添加 ref 属性，方便$refs调用 -->
+        <cpn ref="a1"></cpn>
+        <cpn ref="a2"></cpn>
+        <cpn ref="a3"></cpn>
+        <button @click="btnClick">按钮</button>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>{{name}}</h2>
+        </div>
+    </template>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '我是父组件的数据'
+            },
+            methods: {
+                btnClick() {
+                    // 1. $children 访问子组件（不常用）
+                    // console.log(this.$children); 返回 数组类型，打印所有的子组件
+                    // for (let c of this.$children) {  // 遍历子组件
+                    //     console.log(c.name);         // 打印子组件的name属性
+                    //     c.showMessage();             // 调用子组件的方法  
+                    // }
+                    // console.log(this.$children[2].name);  // 打印所有子组件中，第三个的name属性
+                    // $children的缺点：是根据子组件在父组件中的排序查找，当子组件顺序改变的时候，↑ 这个会出错
+
+                    // 2. $refs 访问子组件（推荐），需要给子组件添加 ref 属性
+                    // console.log(this.$refs); 返回 对象类型，默认是一个空对象
+                    console.log(this.$refs);
+                    console.log(this.$refs.a2.name);
+                }
+            },
+            // 创建子组件
+            components: {
+                cpn: {
+                    template: "#cpn",
+                    data() {
+                        return {
+                            name: '我是子组件的数据'
+                        }
+                    },
+                    methods: {
+                        showMessage() {
+                            console.log('--子组件的方法');
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

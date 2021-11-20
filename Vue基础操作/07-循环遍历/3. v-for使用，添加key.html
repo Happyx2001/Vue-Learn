@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- key的主要作用：更加高效的更新虚拟DOM ！！！ -->
+    <div id="app">
+        <ul>
+            <li v-for="item in num">{{item}}</li>
+        </ul>
+
+        <!-- eg：给一个数组之间添加一个数值：
+                默认的算法(diff算法)的执行是非常没有效率的，
+                因此需要使用key给每个节点做一个唯一标识 -->
+        <ul>
+            <!-- 添加了key的数组 -->
+            <li v-for="item in num" :key="item">{{item}}</li>
+        </ul>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                num: ['A', 'B', 'C', 'D', 'E']
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

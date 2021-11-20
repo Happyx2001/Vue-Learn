@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <cpn></cpn>
+        <cpn></cpn>
+        <cpn></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>当前计数：{{counter}}</h2>
+            <button @click="less">-</button>
+            <button @click="add">+</button>
+        </div>
+    </template>
+    <script>
+        // 组件数据data必须是函数的理由：
+        // 只有这种形式才能确保每个组件的数据都是单独计算的。
+        // 即：即使是相同的组件，他们的数据函数也是单独计算于自身的，与其他组件不会联动
+
+        // 注册组件
+        Vue.component('cpn', {
+            template: '#cpn',
+
+            // 创建只属于组件的数据 data
+            // 1. 只属于组件的数据，必须是函数形式，即 data()。否则报错
+            // 2. 该数据函数的返回值，必须是对象形式 return{}。否则报错
+
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+
+            // 组件中不仅可以有data，还可以有methods模块
+            methods: {
+                add() {
+                    this.counter++
+                },
+                less() {
+                    this.counter--
+                }
+            }
+        })
+
+
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+    <script>
+        // 解释为什么数据函数必须这么写:
+        // 数据函数返回实例:
+        // 1. 函数 返回 "即时建立的对象"
+        {
+            function abc() {
+                return {
+                    name: '未改变',
+                    age: 20
+                }
+            };
+
+            let obj1 = abc();
+            let obj2 = abc();
+            let obj3 = abc();
+
+            // 只改变obj1, 并不会影响其他的对象
+            // 因为, 实际上 obj. obj2. obj3. 所指向的地址是不一样的
+            obj1.name = '改变的值';
+            console.log(obj1, obj2, obj3);
+        }
+
+        // 2. 函数 返回 "建立好的对象"
+        {
+            let obj = {
+                name: '未改变',
+                age: 18
+            };
+            function abc() {
+                return obj
+            };
+
+            let obj1 = abc();
+            let obj2 = abc();
+            let obj3 = abc();
+
+            // 只改变obj1, 会连带影响其他的对象
+            // 因为, 实际上 obj. obj2. obj3. 所指向的地址是同样的, 都是 obj对象的地址
+            obj1.name = '改变的值';
+            console.log(obj1, obj2, obj3);
+        }
+    </script>
+</body>
+
+</html>

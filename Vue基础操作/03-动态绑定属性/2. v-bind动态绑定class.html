@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>template(模板)</title>
+    <style>
+        .color {
+            color: red;
+        }
+
+        .size {
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- v-bind还可以动态绑定class, 以便于动态变更样式 -->
+    <div id="app">
+        <!-- v-bind动态绑定class：对象语法形式 -->
+        <!-- <h2 v-bind:class="{key1: value1, key2: value2}"></h2> -->
+        <!-- <h2 v-bind:class="{类名1: boolean, 类名2: boolean}"></h2> -->
+        <!-- 通过改变 boolean布尔值 来设置class是否确立 -->
+
+        <h2 v-bind:class="{color: isColor, size: isSize}">{{uname}}</h2>
+        <!-- 如果class过多且复杂，可以放置在methods中 -->
+        <h2 v-bind:class="getClasses()">对象语法形式</h2>
+        <button v-on:click="btnClick1">变色按钮</button>
+        <button v-on:click="btnClick2">变大小按钮</button>
+        <h2>------------------------------------------------</h2>
+
+        <!-- 数组语法形式 （用的很少）-->
+        <h2 v-bind:class="['color','size']">数组语法形式1</h2>
+        <h2 v-bind:class="getClasses2()">数组语法形式2</h2>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                uname: '张三',
+                isColor: true,
+                isSize: true
+            },
+            // 通过methods里面设置的方法,改变data里面的值,进而影响到v-bind绑定的class 
+            methods: {
+                // 变色按钮
+                btnClick1: function () {
+                    this.isColor = !this.isColor;
+                },
+                // 变大小按钮
+                btnClick2: function () {
+                    this.isSize = !this.isSize;
+                },
+                getClasses: function () {
+                    return { color: this.isColor, size: this.isSize }
+                },
+                getClasses2: function () {
+                    return ['color', 'size']
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

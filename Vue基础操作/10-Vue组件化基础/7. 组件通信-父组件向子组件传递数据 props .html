@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- 7. 组件通信-父组件向子组件传递数据 props  -->
+    这里用 Vue实例 作为 cpn组件 的父组件
+    <div id="app">
+        <!-- :cmovies="movies" :cmessage="message" 表示: -->
+        <!-- cmovies动态接收父组件movies数据, cmessage动态接收父组件message数据 -->
+        <cpn :cmovies="movies" :cmessage="message"></cpn>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id="cpn">
+        <div>
+            <ul>
+                <li v-for="item in cmovies">{{item}}</li>
+            </ul>
+            <h2>{{cmessage}}</h2>
+        </div>
+    </template>
+
+    <script>
+        Vue.component('cpn', {
+            template: '#cpn',
+
+            // 父组件向子组件传递数据 props:  props写在子组件中 接收传递的数据
+            // 1. (开发中使用的少)字符串数组形式: props: ['数据1传递时的名称', '数据2传递时的名称',...]
+            // props: ['cmovies', 'cmessage'],
+            // 2. 对象形式:
+            props: {
+                // 2.1 类型限制  (名称: 数据类型)
+                // cmovies: Array,
+                // cmessage: String
+
+                // 2.2 提供一些默认值, 必传值
+                cmovies: Array,
+                cmessage: {
+                    type: String,         // type: 设置类型限制
+                    default: '这是默认值',  // default: 设置默认值
+                    required: true        // requried: true  表示必须传递这个值
+                }
+            },
+            data() {
+                return {}
+            },
+            methods: {}
+        })
+
+        //创建Vue实例,得到 ViewModel
+        // Vue实例可以看作是 组件的父组件
+        const app = new Vue({
+            el: '#app',
+            data: {
+                movies: ['张三', '李四', '王五', '赵六'],
+                message: '父组件向子组件传递数据'
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

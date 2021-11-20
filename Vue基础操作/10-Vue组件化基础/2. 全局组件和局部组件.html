@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <script>
+        // 1. 全局组件：
+        // 调用 Vue.component() 方法，注册的组件(全局组件)
+        // 全局组件在所有的 Vue 实例作用范围中都能使用
+
+        // 2. 局部组件：(实际开发中，大部分使用的是局部组件)
+        // 在 Vue 实例中，通过 components: 属性注册的组件(局部组件)
+        // 局部组件只能在所注册的 Vue 实例作用范围中使用
+    </script>
+</head>
+
+<body>
+    <div id="app1">
+        <!-- 3. 使用组件 -->
+        <my-cpn></my-cpn>
+        <my-cpn></my-cpn>
+        <cpn></cpn>
+        <!-- app2的局部组件，无法在app1中渲染出来 -->
+    </div>
+    ----------------------------
+    <div id="app2">
+        <!-- 全局组件那里都可以使用 -->
+        <my-cpn></my-cpn>
+        <cpn></cpn>
+    </div>
+    <script>
+        // 组件构造器1
+        const myComponent1 = Vue.extend({
+            // 这种写法以后不会使用了(版本更新，过时了)
+            template: `
+            <div>
+                <h2>全局组件</h2>
+                <p>组件内容1</p>
+                <p>组件内容2</p>
+            </div>
+            `
+        });
+
+        // 组件构造器2
+        const myComponent2 = Vue.extend({
+            // 这种写法以后不会使用了(版本更新，过时了)
+            template: `
+            <div>
+                <h2>app2的局部组件</h2>
+                <p>组件内容1</p>
+                <p>组件内容2</p>
+            </div>
+            `
+        });
+
+        // 创建全局组件
+        Vue.component('my-cpn', myComponent1)
+
+        //创建Vue实例,得到 ViewModel
+        const app1 = new Vue({
+            el: '#app1',
+            data: {},
+            methods: {}
+        });
+
+        const app2 = new Vue({
+            el: '#app2',
+            data: {},
+            // ！！！
+            // 通过 components 注册的只属于 app2 的局部组件
+            components: {
+                // cpn：使用组件时，组件的标签名
+                cpn: myComponent2
+            }
+        })
+    </script>
+</body>
+
+</html>

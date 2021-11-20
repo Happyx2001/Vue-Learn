@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2. Vue列表</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <!-- 运用 v-for 便捷遍历数组，生成列表 -->
+            <!-- 响应式：在times中添加数据会自动响应到li中，添加列表 -->
+            <li v-for="item in times">{{ item }}</li>
+        </ul>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello',
+                // Vue的列表
+                times: ['111', '222', '333', '444']
+            }
+        })
+    </script>
+</body>
+
+</html>

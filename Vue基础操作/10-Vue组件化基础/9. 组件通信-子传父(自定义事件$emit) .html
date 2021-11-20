@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+<!-- 组件通信-子传父(自定义事件)  -->
+
+<body>
+    <div id="app">
+        <!-- 3. 监听自定义 item-click 事件, 触发父组件的 cpnClick 函数 -->
+        <cpn @item-click="cpnClick"></cpn>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id="cpn">
+        <div>
+            <button v-for="item in categories" @click="btnClick(item)">
+                <!-- 1. 监听click点击事件, 触发子组件的 btnClick函数, 传递item参数-->
+                {{item.name}}
+            </button>
+        </div>
+    </template>
+
+
+    <script>
+        // 子组件: 
+        const cpn = {
+            template: '#cpn',
+            data() {
+                return {
+                    categories: [
+                        { id: 100, name: '动漫' },
+                        { id: 101, name: '游戏' },
+                        { id: 102, name: '数码' },
+                        { id: 103, name: '生活' }
+                    ]
+                }
+            },
+            methods: {
+                // 2. 设置 btnClick 函数
+                btnClick(item) {
+                    // 发射自定义事件, 并且传递 item 参数
+                    // this.$emit("自定义事件名称", 事件发生后传递的参数)  
+                    this.$emit("item-click", item)
+                }
+            }
+        }
+
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: ""
+            },
+            // 注册组件 Vue实例作为父组件、cpn为子组件
+            components: {
+                cpn
+            },
+            methods: {
+                // 4. 设置 cpnClick 事件函数, 
+                // 这里的 item 接收的是 自定义事件"item-click"发生后其传递的参数
+                cpnClick(item) {
+                    console.log("cpnClick", item, item.name);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- v-model 和 input:radio 勾选框 结合使用  -->
+    <!-- 根据所选的选项，返回用户所选择的选项 ↓ -->
+    <div id="app">
+        <label for="a">
+            <input type="radio" id="a" value="A" v-model="choose">A
+        </label>
+        <label for="b">
+            <input type="radio" id="b" value="B" v-model="choose">B
+        </label>
+        <label for="c">
+            <input type="radio" id="c" value="C" v-model="choose">C
+        </label>
+        <h2>你的选择是：{{choose}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                choose: ''
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

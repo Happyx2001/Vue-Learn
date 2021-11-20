@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 1. v-for遍历数组: v-for="变量名 in 数组名" -->
+        <ul>
+            <li v-for="item in names">{{item}}</li>
+        </ul>
+
+        <!-- 2. 遍历的过程中获取索引值：
+            v-for="(变量名, index) in 数组名"
+            index 就是索引值 -->
+        <ul>
+            <li v-for="(item, index) in names">{{index+1}}.{{item}}</li>
+        </ul>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                names: ['张三', '李四', '王五', '赵六']
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

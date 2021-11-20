@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <cpn></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>我是子组件cpn</h2>
+            <ccpn></ccpn>
+        </div>
+    </template>
+
+    <template id="ccpn">
+        <div>
+            <h2>我是子子组件ccpn</h2>
+            <button @click="btnClick">按钮</button>
+        </div>
+    </template>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: "我是根组件的数据"
+            },
+            methods: {},
+
+            // Vue实例的子组件cpn：
+            components: {
+                cpn: {
+                    template: "#cpn",
+                    data() {
+                        return {
+                            name: "我是cpn组件的数据"
+                        }
+                    },
+
+                    // cpn子组件的子组件ccpn：
+                    components: {
+                        ccpn: {
+                            template: "#ccpn",
+                            methods: {
+                                btnClick() {
+                                    // 1. 访问父组件$parent（开发中不常用）
+                                    console.log(this.$parent);
+                                    console.log(this.$parent.name);
+
+                                    // 2. 直接访问根组件$root (这里的根组件是$root)
+                                    console.log(this.$root);
+                                    console.log(this.$root.message);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

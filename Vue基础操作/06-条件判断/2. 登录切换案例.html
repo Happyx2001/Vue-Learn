@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- 小案例: 点击按钮改变登录状态 -->
+    <div id="app">
+        <div v-if="isUser">
+            <label for="username">用户账号</label>
+            <input type="text" name="" id="username" placeholder="用户账号" key="username">
+        </div>
+        <div v-else>
+            <label for="email">用户邮箱</label>
+            <input type="text" name="" id="email" placeholder="用户邮箱" key="email">
+        </div>
+        <button @click="isUser=!isUser">切换类型</button>
+
+        <!-- 通过点击案例，改变data中isUser的布尔值 -->
+        <!-- 然后 结合 v-if、v-else 改变登录状态 -->
+
+        <!-- ps: 由于虚拟DOM的特点，input标签存在复用的问题。
+            给 username 的 input 赋予键入值之后。改变登录状态，值不会清零
+            因此需要使用key属性 给input标志特殊的值，防止input复用 -->
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                isUser: true
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

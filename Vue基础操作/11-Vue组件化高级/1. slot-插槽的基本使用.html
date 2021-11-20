@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- 什么是插槽：
+        插槽就是子组件中的提供给父组件使用的一个占位符，用<slot></slot> 表示，
+        父组件可以在这个占位符中填充任何模板代码，如 HTML、组件等，填充的内容会替换子组件的<slot></slot>标签。 -->
+
+    <!-- slot-插槽的使用：
+        1. 插槽的基本使用 <slot></slot>，若没有在组件中添加元素、值，则不显示。
+        2. 插槽的默认值 <slot><button>按钮</button></slot>
+            当组件使用时，没有给插槽额外添加元素、值，则使用默认值。
+        3. 如果插槽中有多个元素、值，则同时放入组件进行替换，一起作为替换元素。 -->
+    <div id="app">
+        <!-- 不做改变，使用默认插槽值 -->
+        <cpn></cpn>
+        -------------------------------
+        <!-- 改变插槽值为 ↓ -->
+        <cpn><button>按钮</button></cpn>
+        -------------------------------
+        <!-- 改变插槽值为 ↓ -->
+        <cpn>
+            <h2>单个元素</h2>
+        </cpn>
+        -------------------------------
+        <!-- 改变插槽值为多个  ↓ -->
+        <cpn>
+            <p>多个元素1</p>
+            <b>多个元素2</b>
+            <div>多个元素3</div>
+        </cpn>
+
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>我是子组件</h2>
+            <slot><button>默认按钮</button></slot>
+        </div>
+    </template>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            components: {
+                cpn: {
+                    template: "#cpn"
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- select滚轮选择框 -->
+        <!-- 1. 选择一个 -->
+        <h2>选择一个</h2>
+        <select name="shuiguo" id="" v-model="fruit">
+            <option value="香蕉">香蕉</option>
+            <option value="苹果">苹果</option>
+            <option value="葡萄">葡萄</option>
+            <option value="榴莲">榴莲</option>
+            <option value="桃子">桃子</option>
+        </select>
+        <h2>你选择的水果是：{{fruit}}</h2>
+
+        <!-- 2. 选择多个 -->
+        <h2>选择多个</h2>
+        <select name="shuiguo" id="" v-model="fruits" multiple>
+            <!-- multiple 表示滚轮选择框允许多选(按住Ctrl多选) -->
+            <option value="香蕉">香蕉</option>
+            <option value="苹果">苹果</option>
+            <option value="葡萄">葡萄</option>
+            <option value="榴莲">榴莲</option>
+            <option value="桃子">桃子</option>
+        </select>
+        <h2>你选择的水果是：{{fruits}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                fruit: '',
+                fruits: []
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

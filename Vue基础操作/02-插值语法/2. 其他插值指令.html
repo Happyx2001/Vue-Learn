@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 含有v-cloak属性的标签会隐藏 */
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-once指令: 表示元素和组件只渲染一次, 之后不会随着数据的改变而改变 -->
+        <h2>{{uname1}}</h2>
+        <h2 v-once>{{uname1}}</h2>
+
+        <h2>----------------------------------------------------------</h2>
+
+        <!-- v-html指令: v-html="string" 会将 strong的html解析出来并且进行渲染 -->
+        <!-- eg: 将 url 以 html 形式解析出来  -->
+        <h2>{{url}}</h2>
+        <h2 v-html="url"></h2>
+        <h2 v-html="uname1"></h2>
+
+        <h2>----------------------------------------------------------</h2>
+
+        <!-- v-text: 将数据显示在界面中, 但是不灵活会覆盖标签内原有的内容 -->
+        <h2>{{uname2}}</h2>
+        <h2 v-text="uname2"></h2>
+        <h2 v-text="uname2">, 你好!</h2>
+
+        <h2>----------------------------------------------------------</h2>
+
+        <!-- v-pre: 跳过这个元素和它子元素的编译过程,直接显示原本的的mustache语法 -->
+        <h2>{{uname2}}</h2>
+        <h2 v-pre>{{uname2}}</h2>
+
+        <h2>----------------------------------------------------------</h2>
+    </div>
+
+    <div id="app2">
+        <!-- v-cloak(斗篷): 该指令与CSS结合可以实现, 隐藏未编译的mustache标签 -->
+        <!-- 且: vue解析前, div中会有v-cloak属性.
+                vue解析后, div中v-cloak属性会消失 -->
+        <h2>{{uname}}</h2>
+        <h2 v-cloak>{{uname}}</h2>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                uname1: '张三',
+                uname2: '李四',
+                num: 200,
+                url: '<a href="http://www.bilibili.com">bilibili</a>'
+            }
+        });
+        setTimeout(function () {
+            const app2 = new Vue({
+                el: '#app2',
+                data: {
+                    uname: 'Hello, Vue.js',
+                }
+            })
+        }, 2000)
+
+    </script>
+</body>
+
+</html>

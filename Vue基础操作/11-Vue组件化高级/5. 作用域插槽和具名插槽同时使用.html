@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- 作用域插槽与具名插槽结合！！！ -->
+    <!-- v-slot:slot-left="name1"：
+        v-slot:插槽的名称="绑定当前插槽后，的代号" -->
+    <div id="app">
+        <!-- 1. 默认情况 -->
+        <cpn></cpn>
+        -------------------------------
+        <!-- 2. 更改slot-left插槽，将其映射为 name1 -->
+        <cpn>
+            <template v-slot:slot-left="name1">
+                <!-- 输出 slot-left 插槽的uname1属性 -->
+                <h2>{{name1.uname1.join(' - ')}}</h2>
+            </template>
+        </cpn>
+        -------------------------------
+        <!-- 3. 同理 -->
+        <cpn>
+            <template v-slot:slot-center="name2">
+                <b>{{name2.uname2}}</b>
+            </template>
+            <template v-slot:slot-right="name3">
+                <p>{{name3.uname3}}</p>
+            </template>
+        </cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>作用域插槽+具名插槽</h2>
+            <!-- 给各个插槽命名，并且将子组件的值与插槽的自定义属性绑定 -->
+            <slot name="slot-left" :uname1="uname">
+                <h3>左侧插槽</h3>
+            </slot>
+            <slot name="slot-center" :uname2="uname">
+                <h3>中间插槽</h3>
+            </slot>
+            <slot name="slot-right" :uname3="uname">
+                <h3>右侧插槽</h3>
+            </slot>
+        </div>
+    </template>
+
+    <script>
+        // 创建子组件
+        const cpn = {
+            template: "#cpn",
+            data() {
+                return {
+                    uname: ['张三', '李四', '王五']
+                }
+            }
+        }
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            components: {
+                cpn
+            }
+        });
+    </script>
+</body>
+
+</html>

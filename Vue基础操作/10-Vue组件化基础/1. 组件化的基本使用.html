@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <script>
+        // 组件的使用分为三个步骤
+        // 1. 调用 Vue.extend() 方法，创建组件构造器
+        // Vue.extend() ：()里面写组件的内容 用 `` 来写
+
+        // 2. 调用 Vue.component() 方法，注册组件(全局组件)
+        // Vue.component() ：('组件名称', 组件构造器的名称)
+        // PS：这种方式注册的是全局组件
+
+        // 3. 在 Vue实例 的作用范围内，使用组件
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 3. 使用组件 -->
+        <my-cpn></my-cpn>
+        <my-cpn></my-cpn>
+        <my-cpn></my-cpn>
+    </div>
+    <script>
+        // 1. 创建组件构造器
+        const myComponent = Vue.extend({
+            // 这种写法以后不会使用了(版本更新，过时了)
+            template: `
+            <div>
+                <h2>组件标题</h2>
+                <p>组件内容1</p>
+                <p>组件内容2</p>
+            </div>
+            `
+        });
+
+        // 2. 注册组件(全局组件)，并且定义组件标签的名称
+        Vue.component('my-cpn', myComponent)
+
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

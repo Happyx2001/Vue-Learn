@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>123</title>
+    <style>
+        img {
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 动态绑定属性: v-bind  -->
+    <!-- 可以动态的绑定: a元素的href属性, img元素的src属性 -->
+    <div id="app">
+        <img v-bind:src="imgUrl" alt="">
+        <a v-bind:href="aUrl">bilibili</a>
+
+        <!-- 语法糖式写法(简写): : -->
+        <img :src="imgUrl" alt="">
+        <a :href="aUrl">bilibili</a>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                imgUrl: 'http://i0.hdslb.com/bfs/feed-admin/385745243b5ce243f156a43676415584e3dd5c74.png',
+                aUrl: 'http://www.bilibili.com'
+            }
+        })
+    </script>
+</body>
+
+</html>

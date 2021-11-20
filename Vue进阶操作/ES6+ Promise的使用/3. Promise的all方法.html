@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise的all方法</title>
+</head>
+<script>
+    // Promise的all方法:
+    Promise.all([
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({ name: '张三', age: 20 })
+            }, 1000)
+        }),
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({ name: '李四', age: 22 })
+            }, 1000)
+        })
+    ]).then(results => {
+        console.log(results);
+    })
+
+    Promise.all([
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({ name: '张三', age: 20 })
+            }, 1000)
+        }),
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject({ name: '李四', age: 22 })
+            }, 1000)
+        })
+    ]).then(results => {
+        console.log(results);
+    })
+
+    // 如果 all 中传入的 Promise 返回结果都是成功, 则all成功且返回成功的Promise
+    // 如果 all 中传入的 Promise 返回结果中有一个失败, 则all失败
+
+</script>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-model的修饰符： -->
+
+        <!-- 1. lazy：让数据(input框)在失去焦点或者回车时才更新 -->
+        无修饰符
+        <input type="text" v-model="message">
+        有 .lazy 修饰符
+        <input type="text" v-model.lazy="message">
+        <h2>输入的内容为：{{message}}</h2>
+
+        <!-- 2. number：让输入框中输入的内容自动转为数字类型 -->
+        无修饰符
+        <input type="text" v-model="num">
+        有 .number 修饰符
+        <input type="text" v-model.number="num">
+        <h2>输入的内容为：{{num}}，数据类型是：{{typeof num}}</h2>
+
+        <!-- 3. trim：过滤掉输入内容左右两边的空格 -->
+        无修饰符
+        <input type="text" v-model="str">
+        有 .trim 修饰符
+        <input type="text" v-model.trim="str">
+        <h2>输入的内容为：{{str}}</h2>
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '',
+                num: '',
+                str: ''
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>template</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-bind动态绑定style：对象语法形式  -->
+        <!-- <h2 :style="{key(属性名): value(属性值)}">{{uname}}</h2> -->
+
+        <!-- <h2 :style="{fontSize: '50px'}">{{uname}}</h2>
+        属性值是数值的情况：其中的 50px 必须加上单引号'',不然会被当成一个变量去解析 -->
+        <h2 :style="{fontSize: '50px'}">{{uname}}</h2>
+
+        <!-- 属性值是变量的情况: 可以动态的改变style的值，响应式。
+            值可以是data里面的值 -->
+        <h2 :style="{fontSize: isSize +'px', color: isColor}">{{uname}}</h2>
+
+        <!-- 数组语法形式 -->
+        <h2 :style="[style1, style2]">{{uname}}</h2>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                uname: '张三',
+                isSize: 100,
+                isColor: 'red',
+                style1: { fontSize: '150px' },
+                style2: { backgroundColor: 'red' }
+            }
+        })
+    </script>
+</body>
+
+</html>

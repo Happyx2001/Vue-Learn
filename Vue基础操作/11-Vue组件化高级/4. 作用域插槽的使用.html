@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- 使用作用域插槽的目的：可以传递数据的插槽
+    在父级作用域中使用子组件的时候，使子组件内部可以调用子组件的数据 -->
+    <div id="app">
+        <!-- 一. 默认情况 -->
+        <cpn></cpn>
+        -------------------------------
+        <!-- 二. 改变插槽 -->
+        <cpn>
+            <h2>作用域插槽的使用</h2>
+        </cpn>
+        -------------------------------
+        <!-- 三. 作用域插槽 -->
+        <cpn>
+            <!-- 目的是获取子组件中的 uName ：-->
+            <!-- 2. template v-slot:default="随意取的名字"：改变子组件的插槽，并用"t1"代表子组件的slot插槽 -->
+            <template v-slot:default="t1">
+                <!-- 3. 插槽的 namedata 属性，对应的是子组件的 uName数据 -->
+                <span>{{t1.namedata.join(' --- ')}}</span>
+            </template>
+        </cpn>
+        -------------------------------
+        <cpn>
+            <!-- 同理： -->
+            <template v-slot:default="t2">
+                <span>{{t2.namedata.join(' && ')}}</span>
+            </template>
+        </cpn>
+    </div>
+
+    <!-- 子组件模板 -->
+    <template id="cpn">
+        <div>
+            <!-- 1. 将子组件的uName数据跟插槽的namedata属性（名字随意取）绑定 -->
+            <slot :namedata="uName">
+                <ul>
+                    <li v-for="item in uName">{{item}}</li>
+                </ul>
+            </slot>
+        </div>
+    </template>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            components: {
+                cpn: {
+                    template: "#cpn",
+                    data() {
+                        return {
+                            uName: ['张三', '李四', '王五', '赵六', '郑七']
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

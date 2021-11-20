@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-on的参数 -->
+        <h2>1. 事件调用的方法没有参数</h2>
+        <h2>计数器：{{num}}</h2>
+        <button @click="btnClick1()">有括号没参数</button>
+        <!-- 有小括号但没传递参数时，打印的形参为 underfined -->
+        <button @click="btnClick2">没括号</button>
+        <!-- 不用传递参数时，函数的小括号可以省略。
+            但是方法本身是需要参数的，因此没有小括号时。
+            Vue会默认将浏览器 生产的event事件对象作为实参传递到方法中 -->
+
+        <br>
+
+        <h2>2. 方法定义时，需要event对象，又需要其他参数</h2>
+        <!-- 直接写 event 无法获取, 显示 undefined -->
+        <!-- 手动获取浏览器参数的event对象： $event -->
+        <button @click="btnClick3(123, event)">只写event的情况</button>
+        <button @click="btnClick4(123, $event)">写 $event 的情况</button>
+    </div>
+
+
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                num: 0
+            },
+            methods: {
+                btnClick1(event) {
+                    console.log('----计数器+1', event);
+                    this.num++
+                },
+                btnClick2(event) {
+                    console.log('----计数器-1', event);
+                    this.num--
+                },
+                btnClick3(abc, event) {
+                    console.log('----计数器+1', abc, event);
+                    this.num++
+                },
+                btnClick4(abc, event) {
+                    console.log('----计数器-1', abc, event);
+                    this.num--
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

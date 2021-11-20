@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>加减之后的数字为：{{tatol}}</h2>
+        <cpn @add="changeTotal" @less="changeTotal"></cpn>
+    </div>
+
+    <!-- 子组件 -->
+    <template id="tcpn">
+        <div>
+            <button @click="decrement">-1</button>
+            <button @click="increment">+1</button>
+        </div>
+    </template>
+    <script>
+        // 构建子组件
+        const cpn = {
+            template: "#tcpn",
+            // 子组件的数据
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+            // 子组件的自定义事件
+            methods: {
+                increment() {
+                    this.counter++;
+                    // 发射自定义事件
+                    this.$emit('add', this.counter)
+                },
+                decrement() {
+                    this.counter--;
+                    // 发射自定义事件
+                    this.$emit('less', this.counter)
+                }
+            }
+        }
+
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                tatol: 0
+            },
+            methods: {
+                changeTotal(counter) {
+                    this.tatol = counter
+                }
+            },
+
+            // 设置 Vue实例的子组件cpn
+            components: {
+                cpn
+            }
+        });
+    </script>
+</body>
+
+</html>

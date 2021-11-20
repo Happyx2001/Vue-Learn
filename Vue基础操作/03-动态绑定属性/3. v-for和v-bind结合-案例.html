@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>template(模板)</title>
+    <style>
+        li {
+            font-size: 50px;
+        }
+
+        .color {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <!-- 运用：点击一个li，该li颜色发生改变 -->
+            <!-- v-for的一种用法： v-for="(m,index) in uname" 
+                index可以看作为当前被遍历元素的索引号-->
+            <li v-for="(m,index) in uname" v-on:click="getIndex=index" v-bind:class={color:(getIndex==index)}>
+                {{index}}-{{m}}
+            </li>
+        </ul>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                uname: ['张三', '李四', '王五', '赵六'],
+                getIndex: 5
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>template</title>
+  </head>
+
+  <body>
+    <!-- 利用计算属性，计算data中 man数组对象中的总年龄 -->
+    <div id="app">
+      <h2>总年龄：{{totalAge}}</h2>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          man: [
+            { id: 100, name: "张三", age: 18 },
+            { id: 101, name: "李四", age: 20 },
+            { id: 102, name: "王五", age: 21 },
+            { id: 103, name: "赵四", age: 19 },
+          ],
+        },
+        computed: {
+          totalAge: function () {
+            let result = 0;
+            for (let i = 0; i < this.man.length; i++) {
+              result += this.man[i].age;
+            }
+            return result;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

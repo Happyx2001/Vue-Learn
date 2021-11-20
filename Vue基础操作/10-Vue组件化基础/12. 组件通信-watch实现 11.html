@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- 父子组件双向绑定: （案例）
+        1. 父组件传递数据 num1、num2 给子组件 number1、number2
+        2. 子组件将接收到的数据number1、number2，作为自己的数据dnumber1、dnumber2，并让其显示在 输入框 中
+        3. 修改了子组件 输入框 中的数据时，触发input事件，调用num1Input函数
+        4. num1Input函数，会使得 输入框 中的数据重新作为 子组件的数据
+        5. 并且发射自定义事件：num1change，携带的参数为 子组件的数据
+        6. 父组件中，自定义事件num1change会调用 num1change函数 
+        7. num1change函数，会将接收到的参数作为父组件的数据。
+        8. （轮回......）-->
+    <div id="app">
+        <!-- 父组件 num1 => 子组件 number1 -->
+        <cpn :number1="num1" :number2="num2" @num1change="num1change" @num2change="num2change"></cpn>
+        <h2>num1：{{num1}}</h2>
+        <h2>num2：{{num2}}</h2>
+    </div>
+
+    <template id="tcpn">
+        <div>
+            <h2>props:{{number1}}</h2>
+            <h2>data:{{dnumber1}}</h2>
+            <input type="text" v-model="dnumber1">
+            <h2>props:{{number2}}</h2>
+            <h2>data:{{dnumber2}}</h2>
+            <input type="text" v-model="dnumber2">
+        </div>
+    </template>
+    <script>
+
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                num1: 1,
+                num2: 0
+            },
+            methods: {
+                num1change(value) {
+                    this.num1 = parseFloat(value)
+                },
+                num2change(value) {
+                    this.num2 = parseFloat(value)
+                }
+            },
+            // 创建子组件
+            components: {
+                cpn: {
+                    template: "#tcpn",
+                    // 接收父组件传递的数据
+                    props: {
+                        number1: Number,
+                        number2: Number
+                    },
+                    // 子组件的数据为：从父组件传递过来的数据
+                    data() {
+                        return {
+                            dnumber1: this.number1,
+                            dnumber2: this.number2
+                        }
+                    },
+                    // watch: 监听data()中的数据，当数据改变的时候，触发函数
+                    watch: {
+                        dnumber1(newValue) {
+                            this.dnumber1 = newValue; // 函数自己默认
+                            this.dnumber2 = newValue * 2;
+                            // 发射自定义函数，并且传递改变后的数据
+                            this.$emit('num1change', newValue)
+                            this.$emit('num2change', newValue)
+                        },
+                        dnumber2(newValue) {
+                            this.dnumber2 = newValue; // 函数自己默认
+                            // 发射自定义函数，并且传递改变后的数据
+                            this.$emit('num2change', newValue)
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

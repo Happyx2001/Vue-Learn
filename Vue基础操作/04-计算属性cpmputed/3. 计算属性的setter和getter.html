@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>template</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <h2>{{uname1 +' '+ uname2}}</h2>
+      <h2>{{uname1}} {{uname2}}</h2>
+      <h2>{{fullName}}</h2>
+      <h2>{{allName}}</h2>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          uname1: "张三",
+          uname2: "李四",
+        },
+        // computed: 计算属性()
+        computed: {
+          // 1. 下面其实是计算属性的简写：
+          // fullName: function () {
+          //     return this.uname1 + ' ' + this.uname2
+          // }
+
+          // 2. 完整写法：
+          fullName: {
+            set: function (newName) {
+              console.log("这是新数据" + newName);
+              const names = newName.split(" ");
+              // .split('') 将字符串以空格为分隔符，分隔成一个数组
+              this.uname1 = names[0];
+              this.uname2 = names[1];
+            },
+            get: function () {
+              return this.uname1 + " " + this.uname2;
+            },
+          },
+
+          // 3. 计算属性绝大部分情况下是不使用set方法的，是只读属性.
+          // 因此下面的写法也成立
+          allName: {
+            get: function () {
+              return this.uname1 + " " + this.uname2;
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

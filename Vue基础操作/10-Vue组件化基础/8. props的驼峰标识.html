@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+</head>
+
+<body>
+    <!-- 8. props的驼峰标识 -->
+    <div id="app">
+        <!-- 驼峰标识 ↓ -->
+        <!-- c-info 对应 cInfo , c-my-message 对应 cMyMessage -->
+        <mycpn :c-info="info" :c-my-message="mymessage"></mycpn>
+    </div>
+
+    <template id="cpn1">
+        <div>
+            <h2>{{cInfo}}</h2>
+            <h2>{{cMyMessage}}</h2>
+        </div>
+    </template>
+
+    <script>
+        Vue.component('mycpn', {
+            template: '#cpn1',
+            props: {
+                cInfo: {
+                    type: Object,
+                    default() {
+                        return {}
+                    }
+                },
+                cMyMessage: {
+                    type: String,
+                    defaulf: ''
+                }
+            },
+            data() {
+                return {}
+            },
+            methods: {}
+        })
+
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {
+                info: {
+                    name: '张三',
+                    age: 20,
+                    sex: 'man'
+                },
+                mymessage: '这是信息'
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

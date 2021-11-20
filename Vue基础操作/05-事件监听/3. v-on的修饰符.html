@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        #app div {
+            width: 200px;
+            height: 100px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>v-on修饰符</h2>
+        <div @click="divClick">
+            <h3>div点击事件, 冒泡</h3>
+            <button @click="btnClick">冒泡按钮</button>
+            <!-- 点击 btn 按钮,会导致事件冒泡. div点击事件也会执行 -->
+            <!-- 因此需要添加修饰符, 限制这类的冒泡行为 -->
+
+            <!-- 1. .stop修饰符的使用: 停止冒泡-->
+            <button @click.stop="btnClick">.stop不冒泡按钮</button>
+        </div>
+
+        <!-- 2. .prevent修饰符的使用: 阻止默认行为 -->
+        <br>
+        <form action="baidu">
+            <h2>阻止默认行为</h2>
+            <input type="submit" value="提交(默认)">
+            <input type="submit" value="提交(阻止默认1)" @click.prevent="subClick">
+        </form>
+        <form action="baidu" @click.prevent>
+            <h2>阻止默认行为, 没有表达式</h2>
+            <input type="submit" value="提交(阻止默认2)">
+        </form>
+
+        <!-- 3. 串联写法 @click.stop.prevent -->
+
+        <!-- 4. 监听某个键盘按键: @keyup.键别名 -->
+        <h2>监听特定按键</h2>
+        <input type="text" @keyup.enter="keyUp" value="特定按键是enter">
+
+        <!-- 5. .once只触发一次回调(只能使用一次) -->
+        <h2>只触发一次回调</h2>
+        <button @click.once="btnOnce">只能触发一次的按钮</button>
+
+    </div>
+
+    <script>
+        //创建Vue实例,得到 ViewModel
+        const app = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+                btnClick() {
+                    console.log("btn被点击了");
+                },
+                divClick() {
+                    console.log("div被点击了");
+                },
+                subClick() {
+                    console.log("submit行为被阻止了");
+                },
+                keyUp() {
+                    console.log("特定按键被按下");
+                },
+                btnOnce() {
+                    console.log("只能触发一次");
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
